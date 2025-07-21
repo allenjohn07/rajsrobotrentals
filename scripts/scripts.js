@@ -1,4 +1,4 @@
-/****************** YOUR NAME: 
+/****************** YOUR NAME: Allen John
 
 The instructions describe the missing logic that is needed; you will translate these into JavaScript in the places indicated.
 
@@ -11,9 +11,8 @@ You are encouraged to use the provided naming convention for ease of review.
 
 // INSERT YOUR CODE HERE
 
-
-
-
+let modelName = "XYZ";
+let duration = 0;
 
 /****************** helper function ******************/
 /* create a function called recalculate() which will
@@ -27,10 +26,18 @@ You are encouraged to use the provided naming convention for ease of review.
 
 // INSERT YOUR CODE HERE
 
+function recalculate() {
+  let costLabel = document.getElementById("calculated-cost");
+  let totalCost;
 
+  if (modelName === "XYZ") {
+    totalCost = duration * 100;
+  } else if (modelName === "CPRG") {
+    totalCost = duration * 213;
+  }
 
-
-
+  costLabel.innerHTML = totalCost.toFixed(2);
+}
 
 /****************** model button logic ******************/
 
@@ -42,15 +49,27 @@ You are encouraged to use the provided naming convention for ease of review.
     - if modelName is currently "CPRG", change the value of modelName to "XYZ", and change the innerHTML of the model-text span element to "Model XYZ"
     - then, recalculate() the total cost.
 - finally, uncomment the following line of JavaScript to have this function run automatically whenever the pseudo-button is clicked: */
-    // modelButton.addEventListener("click", changeModel);
+// modelButton.addEventListener("click", changeModel);
 
 // INSERT YOUR CODE HERE
 
+let modelButton = document.getElementById("model-button");
 
+function changeModel() {
+  let modelText = document.getElementById("model-text");
 
+  if (modelName === "XYZ") {
+    modelName = "CPRG";
+    modelText.innerHTML = "Model CPRG";
+  } else if (modelName === "CPRG") {
+    modelName = "XYZ";
+    modelText.innerHTML = "Model XYZ";
+  }
 
+  recalculate();
+}
 
-
+modelButton.addEventListener("click", changeModel);
 
 /****************** duration button logic ******************/
 /*  - first, create a variable to represent the "Change Duration" pseudo-button.
@@ -65,5 +84,24 @@ You are encouraged to use the provided naming convention for ease of review.
 
 // INSERT YOUR CODE HERE
 
+let durationButton = document.getElementById("duration-button");
 
+function changeDuration() {
+  let durationText = document.getElementById("duration-text");
+  let newDuration = prompt("Enter the number of days:");
 
+  if (
+    newDuration === null ||
+    newDuration === "" ||
+    isNaN(newDuration) ||
+    newDuration < 0
+  ) {
+    alert("wrong Input");
+  } else {
+    duration = parseInt(newDuration);
+    durationText.innerHTML = duration;
+    recalculate();
+  }
+}
+
+durationButton.addEventListener("click", changeDuration);
